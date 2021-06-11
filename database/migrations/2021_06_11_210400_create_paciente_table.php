@@ -16,7 +16,6 @@ class CreatePacienteTable extends Migration
         Schema::create('paciente', function (Blueprint $table) {
             $table->id('id_usuario');
             $table->text('eps',100);
-
             $table->foreign("id_usuario")->references("id_usuario")->on("usuario");
         });
     }
