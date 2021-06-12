@@ -14,7 +14,8 @@ class CreatePacienteTable extends Migration
     public function up()
     {
         Schema::create('paciente', function (Blueprint $table) {
-            $table->id('id_usuario');
+            $table->unsignedBigInteger('id_usuario');
+            $table->primary('id_usuario');
             $table->text('eps',100);
             $table->foreign("id_usuario")->references("id_usuario")->on("usuario");
         });

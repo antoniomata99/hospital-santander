@@ -8,7 +8,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <form action="">
+    <form action="/patient" method="POST">
+        @csrf
         <div class="columns is-mobile is-centered is-vcentered">
             <div class="column is-7 is-centered">
                 <div class="field">
@@ -34,13 +35,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="field">Fecha Inicio</label>
-                    <div class="control">
-                        <input class="input" type="date">
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="field">Fecha Fin</label>
+                    <label class="label">Fecha</label>
                     <div class="control">
                         <input class="input" type="date">
                     </div>
@@ -52,12 +47,6 @@
                             <label class="radio">
                                 <input type="radio" name="answer">
                             </label>
-                        </div>
-                        <div class="field">
-                            <label class="label">Doctor</label>
-                            <div class="control">
-                              <input class="input" type="text" placeholder="Text input">
-                            </div>
                         </div>
                         <div class="field">
                             <label class="label">Fecha</label>
@@ -81,7 +70,7 @@
                 </div>
 
                 <div class="field">
-                    <a class="button modal-trigger" data-modal="testa">Registrar cita</a>
+                    <input type="submit" class="button modal-trigger" data-modal="testa" value="Registrar cita">
                     <div class="modal" data-modal="testa">
                         <div class="modal-background"></div>
                         <div class="modal-content">

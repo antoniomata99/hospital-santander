@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paciente extends Model
 {
+
     use HasFactory;
+
+    public $incrementing = false;
+    protected $primaryKey = 'id_usuario';
 
     // Relacion uno a uno tabla Paciente con tabla Usuario
     public function usuario(){

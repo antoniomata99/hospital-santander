@@ -14,7 +14,8 @@ class CreateMedicoTable extends Migration
     public function up()
     {
         Schema::create('medico', function (Blueprint $table) {
-            $table->id('id_usuario');
+            $table->unsignedBigInteger('id_usuario');
+            $table->primary('id_usuario');
             $table->unsignedBigInteger('id_agenda');
 
             $table->foreign("id_agenda")->references("id_agenda")->on("agenda");

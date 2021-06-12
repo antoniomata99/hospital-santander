@@ -9,6 +9,10 @@ class Medico extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_usuario'; // or null
+
+    public $incrementing = false;
+
     // Relacion uno a uno de la tabla Medico con la tabla Usuario
     public function usuario(){
 
