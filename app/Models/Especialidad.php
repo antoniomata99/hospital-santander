@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Especialidad extends Model
 {
     use HasFactory;
+
+    //Relación uno a muchos de la tabla Especialidad con la tabla Remision
+    public function remision(){
+
+        return $this->hasMany('App\Models\Remision', 'id_especialidad', 'id_especialidad');
+    }
 }
