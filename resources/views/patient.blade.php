@@ -21,6 +21,12 @@
                     {{Session::get('id_document_not_found')}}
                 </div>
                 @endif
+                @if(Session::has('remision_not_found'))
+                <div class="notification is-danger is-light">
+                    <button class="delete"></button>
+                    {{Session::get('remision_not_found')}}
+                </div>
+                @endif
                 @if(Session::has('orden_remision'))
                 <div class="notification is-success is-light">
                     <button class="delete"></button>

@@ -64,16 +64,13 @@ class PatientController extends Controller
         $id_user_remision_collections = Remision::where('id_usuario', $id_numero_documento)->get();
         $empty_user_remision = $id_user_remision_collections->isEmpty();
         if($empty_user_remision == true){
-            return redirect('patient')->with('remision_not_fount', 'Lo sentimos, no existe este documento');
+            return redirect('patient')->with('remision_not_found', 'Lo sentimos, no tiene orden de remision');
         } else{
             foreach ($id_user_remision_collections as $id_user_remision_collection) {
                 $id_usuario_orden_remision = $id_user_remision_collection->id_orden;
                 return redirect('patient')->with('orden_remision', "Tiene una orden de remisión, esta es $id_usuario_orden_remision");
             }
         }
-
-
-
         //Fin validación orden remisión
     }
 
