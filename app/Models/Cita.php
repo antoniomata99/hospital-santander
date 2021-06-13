@@ -9,6 +9,8 @@ class Cita extends Model
 {
     use HasFactory;
 
+    protected $table = 'cita';
+
     //Relacion uno a muchos (inversa) de la tabla Pacientes con la tabla Citas
     public function paciente(){
 

@@ -10,6 +10,8 @@ class Paciente extends Model
 
     use HasFactory;
 
+    protected $table = 'paciente';
+
     public $incrementing = false;
     protected $primaryKey = 'id_usuario';
 

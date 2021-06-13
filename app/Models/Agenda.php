@@ -9,6 +9,8 @@ class Agenda extends Model
 {
     use HasFactory;
 
+    protected $table = 'agenda';
+
     // Relación uno a muchos entre la tabla Agenda y la tabla Medico
     public function medico(){
 

@@ -9,6 +9,8 @@ class Perfil extends Model
 {
     use HasFactory;
 
+    protected $table = 'perfil';
+
     //Relación uno a muchos tabla Perfil con tabla Usuario
     public function usuario(){
 

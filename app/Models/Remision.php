@@ -9,6 +9,8 @@ class Remision extends Model
 {
     use HasFactory;
 
+    protected $table = 'remision';
+
     // Relacion uno a muchos (inversa) de la tabla Especialidad con la tabla Remision
     public function especialidad(){
 
