@@ -15,10 +15,16 @@
             <div class="column is-7">
                 <h3 class="title has-text-centered">Hospital Santander</h3>
                 {{-- Desplegar mensaje de que no tiene remisión--}}
-                @if(Session::has('mensaje'))
+                @if(Session::has('id_document_not_found'))
                 <div class="notification is-danger is-light">
                     <button class="delete"></button>
-                    {{Session::get('mensaje')}}
+                    {{Session::get('id_document_not_found')}}
+                </div>
+                @endif
+                @if(Session::has('orden_remision'))
+                <div class="notification is-success is-light">
+                    <button class="delete"></button>
+                    {{Session::get('orden_remision')}}
                 </div>
                 @endif
             </div>
