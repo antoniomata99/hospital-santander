@@ -9,29 +9,31 @@
     <link href="{{ asset('css/patient.css') }}" rel="stylesheet">
 </head>
 <body>
-    <form action="">
+    <form action="{{url('/patient')}}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="columns is-mobile is-centered is-vcentered">
             <div class="column is-7">
                 <h3 class="title has-text-centered">Hospital Santander</h3>
                 {{-- Desplegar mensaje de que no tiene remisión--}}
+                @if(Session::has('mensaje'))
                 <div class="notification is-danger is-light">
                     <button class="delete"></button>
-                    Estimado usuario, al parecer no tiene orden de remisión
+                    {{Session::get('mensaje')}}
                 </div>
+                @endif
             </div>
         </div>
         <div class="columns is-mobile is-centered is-vcentered">
-
             <div class="column is-7">
                 <div class="field">
                     <label class="label">Tipo Documento</label>
                     <div class="control">
                         <div class="select">
-                        <select>
+                        <select name="tipo_documento">
                             <option>Seleccione una opción</option>
-                            <option>CC</option>
-                            <option>TI</option>
-                            <option>CE</option>
+                            <option value="CC">CC</option>
+                            <option value="TI">TI</option>
+                            <option value="CE">CE</option>
                         </select>
                         </div>
                     </div>
@@ -39,7 +41,7 @@
                 <div class="field">
                     <label class="label">Numero documento</label>
                     <div class="control">
-                      <input class="input" type="text" placeholder="Text input">
+                      <input class="input" type="text" placeholder="Text input" name="numero_documento">
                     </div>
                 </div>
                 <div class="field">

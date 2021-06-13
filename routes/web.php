@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\PatientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +14,15 @@ use App\Http\Controllers\AppointmentController;
 |
 */
 
+/*
 Route::get('/patient/appointments', function () {
     return view('appointment');
 });
+*/
 
-Route::post('/patient', [AppointmentController::class, 'store']);
+//Route::get('/patient', [AppointmentController::class, 'create']);
+
+//Route::get('/patient/', [AppointmentController::class, 'validateRemision']);
+
+Route::resource('patient', PatientController::class);
+

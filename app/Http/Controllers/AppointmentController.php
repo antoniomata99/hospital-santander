@@ -6,6 +6,19 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
+
+    /**
+     * Método que valida si un usuario tiene una orden de remisión
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function validateRemision(Request $request){
+        $request->get('tipo_documento');
+        $request->get('numero_documento');
+        dd($request);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +36,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('patient');
     }
 
     /**
