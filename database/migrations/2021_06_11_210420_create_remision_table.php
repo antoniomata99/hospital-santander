@@ -15,11 +15,13 @@ class CreateRemisionTable extends Migration
     {
         Schema::create('remision', function (Blueprint $table) {
             $table->id('id_orden');
+            $table->unsignedBigInteger('id_usuario_paciente');
+            $table->unsignedBigInteger('id_usuario_medico');
             $table->unsignedBigInteger('id_especialidad');
-            $table->unsignedBigInteger('id_usuario');
 
+            $table->foreign("id_usuario_paciente")->references("id_usuario")->on("paciente");
+            $table->foreign("id_usuario_medico")->references("id_usuario")->on("medico");
             $table->foreign("id_especialidad")->references("id_especialidad")->on("especialidad");
-            $table->foreign("id_usuario")->references("id_usuario")->on("paciente");
         });
     }
 

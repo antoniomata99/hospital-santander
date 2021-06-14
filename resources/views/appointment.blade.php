@@ -8,7 +8,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <form action="/patient" method="POST">
+    <form action="" method="">
         @csrf
         <div class="columns is-mobile is-centered is-vcentered">
             <div class="column is-7 is-centered">

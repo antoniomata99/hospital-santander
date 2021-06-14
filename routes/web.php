@@ -15,8 +15,8 @@ use App\Http\Controllers\PatientController;
 */
 
 /*
-Route::get('/patient/appointments', function () {
-    return view('appointment');
+Route::get('/prueba', function () {
+    return view('patient');
 });
 */
 
@@ -26,3 +26,4 @@ Route::get('/patient/appointments', function () {
 
 Route::resource('patient', PatientController::class);
 
+// Route::get('/home', [EmpleadoController::class, 'index'])->name('home');

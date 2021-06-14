@@ -18,11 +18,11 @@ class CreateCitaTable extends Migration
             $table->unsignedBigInteger('id_agenda');
             $table->unsignedBigInteger('id_usuario');
             $table->date('fecha');
-            $table->time('hora_inicio');
-            $table->time('hora_fin');
+            $table->unsignedBigInteger('id_horario');
 
             $table->foreign("id_agenda")->references("id_agenda")->on("agenda");
             $table->foreign("id_usuario")->references("id_usuario")->on("paciente");
+            $table->foreign("id_horario")->references("id_horario")->on("horario");
         });
     }
 

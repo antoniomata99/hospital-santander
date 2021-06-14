@@ -24,7 +24,7 @@ class Paciente extends Model
     // Relacion uno a muchos de la tabla Paciente con la tabla Remision
     public function remision(){
 
-        return $this->hasMany('App\Models\Remision', 'id_usuario', 'id_usuario');
+        return $this->hasMany('App\Models\Remision', 'id_usuario_paciente', 'id_usuario');
     }
 
     // Relacion uno a muchos de la tabla Paciente con la tabla Cita

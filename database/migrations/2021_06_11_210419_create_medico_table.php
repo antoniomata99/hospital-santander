@@ -17,9 +17,12 @@ class CreateMedicoTable extends Migration
             $table->unsignedBigInteger('id_usuario');
             $table->primary('id_usuario');
             $table->unsignedBigInteger('id_agenda');
+            $table->unsignedBigInteger('id_especialidad');
 
-            $table->foreign("id_agenda")->references("id_agenda")->on("agenda");
             $table->foreign("id_usuario")->references("id_usuario")->on("usuario");
+            $table->foreign("id_agenda")->references("id_agenda")->on("agenda");
+            $table->foreign("id_especialidad")->references("id_especialidad")->on("especialidad");
+
         });
     }
 

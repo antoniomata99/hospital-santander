@@ -20,6 +20,10 @@ class Remision extends Model
     // Relacion uno a muchos (inversa) de la tabla Paciente con la tabla Remision
     public function paciente(){
 
-        return $this->belongsTo('App\Models\Paciente', 'id_usuario', 'id_usuario');
+        return $this->belongsTo('App\Models\Paciente', 'id_usuario_paciente', 'id_usuario');
+    }
+
+    public function medico(){
+        return $this->belongsTo('App\Models\Medico', 'id_usuario_medico', 'id_usuario_medico');
     }
 }

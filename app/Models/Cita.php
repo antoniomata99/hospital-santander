@@ -23,4 +23,9 @@ class Cita extends Model
 
         return $this->belongsTo('App\Models\Agenda', 'id_agenda', 'id_agenda');
     }
+
+    public function horario(){
+
+        return $this->belongsTo('App\Models\Horario', 'id_horario', 'id_horario');
+    }
 }

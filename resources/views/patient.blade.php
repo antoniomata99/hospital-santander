@@ -27,12 +27,6 @@
                     {{Session::get('remision_not_found')}}
                 </div>
                 @endif
-                @if(Session::has('orden_remision'))
-                <div class="notification is-success is-light">
-                    <button class="delete"></button>
-                    {{Session::get('orden_remision')}}
-                </div>
-                @endif
             </div>
         </div>
         <div class="columns is-mobile is-centered is-vcentered">
@@ -46,6 +40,7 @@
                             <option value="CC">CC</option>
                             <option value="TI">TI</option>
                             <option value="CE">CE</option>
+                            <option value="PP">PP</option>
                         </select>
                         </div>
                     </div>
