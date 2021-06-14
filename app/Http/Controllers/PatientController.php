@@ -83,8 +83,9 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        //        foreach ($results as $result){
+            $xd = $results->nombre;
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -94,7 +95,24 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
+        $results = DB::select(
+            DB::raw("
+            SELECT especialidad.nombre
+            FROM remision, especialidad
+            WHERE remision.id_usuario_paciente = '$id' AND remision.id_especialidad = especialidad.id_especialidad;
+            ")
+        );
 
+        /*
+        foreach ($results as $result){
+            $xd = $result->nombre;
+        }*/
+
+
+        return view('appointment', compact('results'));
+
+
+        //return view('appointment');
     }
 
     /**

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Agendar cita</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -17,8 +17,10 @@
                     <div class="control">
                       <div class="select">
                         <select>
-                          <option>Selecciones una Especialidad</option>
-                          <option>Cancer</option>
+                          <option>Selecciona una especialidad</option>
+                          @foreach ($results as $result)
+                            <option>{{$result->nombre}}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>
@@ -28,7 +30,7 @@
                     <div class="control">
                       <div class="select">
                         <select>
-                          <option>Selecciones un médico</option>
+                          <option>Selecciona un médico</option>
                           <option>Dr. Gregory House</option>
                         </select>
                       </div>
@@ -42,35 +44,18 @@
                 </div>
 
                 <div class="field">
+                    <h6 class="title is-6">Hora(s) disponible(s)</h6>
                     <div class="box">
-                        <div class="field">
-                            <label class="radio">
-                                <input type="radio" name="answer">
-                            </label>
-                        </div>
-                        <div class="field">
-                            <label class="label">Fecha</label>
-                            <div class="control">
-                              <input class="input" type="text" placeholder="Text input">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Hora Inicio</label>
-                            <div class="control">
-                              <input class="input" type="text" placeholder="Text input">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Hora Fin</label>
-                            <div class="control">
-                              <input class="input" type="text" placeholder="Text input">
-                            </div>
-                        </div>
+                        <label class="radio">
+                            <input type="radio" name="answer">
+                            5:00 PM
+                        </label>
                     </div>
                 </div>
 
                 <div class="field">
-                    <input type="submit" class="button modal-trigger" data-modal="testa" value="Registrar cita">
+                    <input type="submit" class="button is-primary is-light modal-trigger" data-modal="testa" value="Registrar cita">
+                    <input type="submit" class="button is-info is-light" value="Regresar">
                     <div class="modal" data-modal="testa">
                         <div class="modal-background"></div>
                         <div class="modal-content">
