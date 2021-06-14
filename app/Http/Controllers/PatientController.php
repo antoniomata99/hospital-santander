@@ -43,12 +43,20 @@ class PatientController extends Controller
         $tipo_documento = $request->get('tipo_documento');
         $numero_documento = $request->get('numero_documento');
 
+        if($tipo_documento == "Seleccione una opción" || empty($tipo_documento)){
+            return redirect('patient')->with('error_patient', 'No ha seleccionado un tipo de documento');
+        }
+
+        if(empty($numero_documento)){
+            return redirect('patient')->with('error_patient', 'No ha digitado un documento de identidad');
+        }
+
         $id_user_collections = Usuario::select('id_usuario')->where('tipo_documento', $tipo_documento)->where('numero_documento', $numero_documento)->get();
 
         //Inicio validación del documento con la tabla Usuario
         $empty_user_collections = $id_user_collections->isEmpty();
         if($empty_user_collections == true){
-            return redirect('patient')->with('id_document_not_found', 'Lo sentimos, no existe este documento');
+            return redirect('patient')->with('error_patient', 'Lo sentimos, no existe este documento');
         }else{
             foreach ($id_user_collections as $id_user_collection){
                  $id_numero_documento = $id_user_collection->id_usuario;
@@ -60,7 +68,7 @@ class PatientController extends Controller
         $id_user_remision_collections = Remision::where('id_usuario_paciente', $id_numero_documento)->get();
         $empty_user_remision = $id_user_remision_collections->isEmpty();
         if($empty_user_remision == true){
-            return redirect('patient')->with('remision_not_found', 'Lo sentimos, no tiene orden de remision');
+            return redirect('patient')->with('error_patient', 'Lo sentimos, no tiene orden de remision');
         } else{
             return redirect('/patient/'.$id_numero_documento.'/edit');
         }

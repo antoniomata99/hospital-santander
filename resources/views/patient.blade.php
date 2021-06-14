@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Paciente</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/patient.css') }}" rel="stylesheet">
 </head>
@@ -15,16 +15,10 @@
             <div class="column is-7">
                 <h3 class="title has-text-centered">Hospital Santander</h3>
                 {{-- Desplegar mensaje de que no tiene remisión--}}
-                @if(Session::has('id_document_not_found'))
+                @if(Session::has('error_patient'))
                 <div class="notification is-danger is-light">
                     <button class="delete"></button>
-                    {{Session::get('id_document_not_found')}}
-                </div>
-                @endif
-                @if(Session::has('remision_not_found'))
-                <div class="notification is-danger is-light">
-                    <button class="delete"></button>
-                    {{Session::get('remision_not_found')}}
+                    {{Session::get('error_patient')}}
                 </div>
                 @endif
             </div>
