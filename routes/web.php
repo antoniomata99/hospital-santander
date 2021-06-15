@@ -20,10 +20,5 @@ Route::get('/prueba', function () {
 });
 */
 
-//Route::get('/patient', [AppointmentController::class, 'create']);
-
-//Route::get('/patient/', [AppointmentController::class, 'validateRemision']);
-
 Route::resource('patient', PatientController::class);
-
-// Route::get('/home', [EmpleadoController::class, 'index'])->name('home');
+Route::get('/request', [PatientController::class , 'requestData']);

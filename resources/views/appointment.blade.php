@@ -6,20 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Agendar cita</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
     <form action="" method="">
         @csrf
         <div class="columns is-mobile is-centered is-vcentered">
             <div class="column is-7 is-centered">
+                {{-- <h1 class="title is-1">{{$id_usuario}}</h1> --}}
                 <div class="field">
                     <label class="label">Especialidad</label>
                     <div class="control">
                       <div class="select">
-                        <select>
+                        <select name="sel_esp" id="sel_esp">
                           <option>Selecciona una especialidad</option>
-                          @foreach ($results as $result)
-                            <option>{{$result->nombre}}</option>
+                          @foreach ($especialidades as $especialidad)
+                            <option values="{{$especialidad->nombre}}">{{$especialidad->nombre}}</option>
                           @endforeach
                         </select>
                       </div>
@@ -28,9 +31,9 @@
                 <div class="field">
                     <label class="label">Médico</label>
                     <div class="control">
-                      <div class="select">
+                      <div class="select" name="medico" id="sel_med">
                         <select>
-                          <option>Selecciona un médico</option>
+                          <option value="0">Selecciona un médico</option>
                           <option>Dr. Gregory House</option>
                         </select>
                       </div>
@@ -67,29 +70,33 @@
             </div>
         </div>
     </form>
+
 </body>
 <script>
-    function handleModals() {
-  var modalTriggers = document.querySelectorAll(".modal-trigger");
-  for (i = 0; i < modalTriggers.length; i++) {
-    modalTriggers[i].addEventListener("click", function () {
-      var target = this.dataset.modal;
-      console.log(target);
-      var targetContent = document.querySelector(
-        '.modal[data-modal="' + target + '"]'
-      );
-      targetContent.classList.add("is-active");
-    });
-  }
-  var modelClose = document.querySelectorAll(".modal-background,.modal-close");
-  for (i = 0; i < modelClose.length; i++) {
-    modelClose[i].addEventListener("click", function () {
-      var parentModal = this.closest(".modal");
-      parentModal.classList.remove("is-active");
-    });
-  }
-}
-handleModals();
+$( document ).ready(function() {
+
+        especialidadNombre = $('#sel_esp').val(); // Here, I'm getting selected value of dropdown
+        $.ajax({
+            url: '/request',
+            type: "GET",
+            data:{
+                _token:$('input[name="_token"]').val(),
+                'especialidadNombre' : especialidadNombre // in header request I'm getting value [productName: plastic product] *
+            }
+        }).done(function(response){
+            //console.log(response);
+            var arrayString = JSON.stringify(response)
+            var array = JSON.parse(arrayString);
+            console.log(array);
+        });
+
+
+
+
+    //const submitButton = document.querySelector('#submit-button')
+});
+
+
 
 </script>
 </html>

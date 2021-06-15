@@ -44,6 +44,10 @@ class PatientController extends Controller
         $numero_documento = $request->get('numero_documento');
 
         if($tipo_documento == "Seleccione una opción" || empty($tipo_documento)){
+            return redirect('patient')->with('error_patient', 'No ha llenado ningún campo');
+        }
+
+        if($tipo_documento == "Seleccione una opción" || empty($tipo_documento)){
             return redirect('patient')->with('error_patient', 'No ha seleccionado un tipo de documento');
         }
 
@@ -70,7 +74,7 @@ class PatientController extends Controller
         if($empty_user_remision == true){
             return redirect('patient')->with('error_patient', 'Lo sentimos, no tiene orden de remision');
         } else{
-            return redirect('/patient/'.$id_numero_documento.'/edit');
+            return redirect('/patient/'.$id_numero_documento);
         }
         //Fin validación orden remisión
     }
@@ -83,19 +87,8 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        //        foreach ($results as $result){
-            $xd = $results->nombre;
-        }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $results = DB::select(
+        $id_usuario = $id;
+        $especialidades = DB::select(
             DB::raw("
             SELECT especialidad.nombre
             FROM remision, especialidad
@@ -109,10 +102,21 @@ class PatientController extends Controller
         }*/
 
 
-        return view('appointment', compact('results'));
+        return view('appointment', compact('especialidades', 'id_usuario'));
 
 
         //return view('appointment');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+
     }
 
     /**
@@ -136,5 +140,27 @@ class PatientController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function requestData(Request $request){
+
+        $especialidadNombre = null;
+
+        if (isset($request->especialidadNombre)) {
+            $especialidadNombre = $request->especialidadNombre;
+        }
+
+        $medicos = DB::select(
+            DB::raw("
+            SELECT usuario.nombre_usuario
+            FROM usuario, medico, especialidad
+            WHERE especialidad.nombre = '$especialidadNombre' AND
+            especialidad.id_especialidad = medico.id_especialidad AND
+            medico.id_usuario = usuario.id_usuario;
+            ")
+        );
+
+        return response()->json($medicos);
+        //return response(json_enconde($medicos))->header('Content-type', 'text/plain');
     }
 }

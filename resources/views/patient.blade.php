@@ -49,9 +49,7 @@
                     <button class="button is-primary">Realizar consulta</button>
                 </div>
             </div>
-
         </div>
-
     </form>
 </body>
 <script>
