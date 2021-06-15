@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    <form action="" method="">
+    <form id="formCrearCita">
         @csrf
         <div class="columns is-mobile is-centered is-vcentered">
             <div class="column is-7 is-centered">
@@ -20,7 +20,7 @@
                     <div class="control">
                       <div class="select">
                         <select name="sel_esp" id="sel_esp">
-                          <option>Selecciona una especialidad</option>
+                          <option value="">Selecciona una especialidad</option>
                           @foreach ($especialidades as $especialidad)
                             <option values="{{$especialidad->nombre}}">{{$especialidad->nombre}}</option>
                           @endforeach
@@ -33,7 +33,7 @@
                     <div class="control">
                       <div class="select" name="medico" >
                         <select id="sel_med">
-                          <option value="0">Selecciona un médico</option>
+                          <option value="">Selecciona un médico</option>
                         </select>
                       </div>
                     </div>
@@ -41,22 +41,24 @@
                 <div class="field">
                     <label class="label">Fecha</label>
                     <div class="control">
-                        <input class="input" type="date">
+                        <input id="fechaSelect" class="input" type="date">
                     </div>
                 </div>
 
                 <div class="field">
                     <h6 class="title is-6">Hora(s) disponible(s)</h6>
-                    <div class="box">
-                        <label class="radio">
-                            <input type="radio" name="answer">
-                            5:00 PM
-                        </label>
-                    </div>
+                    <span id="contenidoHorario">
+                        <div class="box">
+                            <label class="radio">
+                                <input type="radio" name="answer">
+                                5:00 PM
+                            </label>
+                        </div>
+                    </span>
                 </div>
 
                 <div class="field">
-                    <input type="submit" class="button is-primary is-light modal-trigger" data-modal="testa" value="Registrar cita">
+                    <input id="crearCita" type="button" class="button is-primary is-light modal-trigger" data-modal="testa" value="Registrar cita">
                     <input type="submit" class="button is-info is-light" value="Regresar">
                     <div class="modal" data-modal="testa">
                         <div class="modal-background"></div>
@@ -74,24 +76,37 @@
 <script>
 $( document ).ready(function() {
 
-        especialidadNombre = $('#sel_esp').val(); // Here, I'm getting selected value of dropdown
-        var op = ' ';
-        var div = $(this).parent();
+    var especialidadS= "";
+    var medicoS="";
+
+    $('#sel_esp').change(function(){
+
+        const valor = $(this).val();
+        console.log(valor);
+        console.log(valor.length);
+
+        if(valor != ""){
+            especialidadS = valor;
+            var op = ' ';
+            var div = $(this).parent();
         $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             url: '/request',
             type: "GET",
             data:{
-                _token:$('input[name="_token"]').val(),
-                'especialidadNombre' : especialidadNombre // in header request I'm getting value [productName: plastic product] *
+                'especialidadNombre' : valor // in header request I'm getting value [productName: plastic product] *
             }
         }).done(function(response){
             //console.log(response);
             //var arrayString = JSON.stringify(response)
             //var array = JSON.parse(arrayString);
-            console.log(response);
+            console.log('Longitud respuesta'+response.length);
+
+            if(response.length <=0){
+            $('#sel_med').empty('#sel_med').find('option').remove()
+                .end()
+                .append('<option value="">Selecciona una especialidad</option>')
+                .val('');
+        }
 
 
             for (var i = 0; i < response.length; i++){
@@ -100,9 +115,42 @@ $( document ).ready(function() {
                 }
                 console.log(op);
                 $('#sel_med').append(op);
-
-
         });
+
+        }
+
+    })
+
+    $('#sel_med').change(function(){
+        const valor = $(this).val();
+
+        if(valor != ""){
+            medicoS=valor;
+        }
+
+    })
+    $('#fechaSelect').change(function(){
+        console.log(especialidadS);
+        console.log(medicoS);
+        console.log($(this).val());
+
+        $('#contenidoHorario').html('<div class="box">\
+            <label class="radio">\
+                <input type="radio" name="answer">\
+                10:00 PM\
+            </label>\
+        </div>')
+    })
+
+    $('').click(function(){
+        const data = $('#formCrearCita').serializeArray();
+        data.push({
+            name:'id_paciente',
+            value: "{{$id_usuario}}"
+        })
+        console.log(data);
+        window.location.href="/";
+    })
 
 
 

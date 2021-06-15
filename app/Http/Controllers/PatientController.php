@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\DB;
 use App\Models\Remision;
+use App\Models\Especialidad;
 
 class PatientController extends Controller
 {
@@ -74,7 +75,7 @@ class PatientController extends Controller
         if($empty_user_remision == true){
             return redirect('patient')->with('error_patient', 'Lo sentimos, no tiene orden de remision');
         } else{
-            return redirect('/patient/'.$id_numero_documento);
+            return redirect('/patient/'.$id_numero_documento)->with('id_usuario',$id_numero_documento);
         }
         //Fin validación orden remisión
     }
@@ -150,6 +151,8 @@ class PatientController extends Controller
             $especialidadNombre = $request->especialidadNombre;
         }
 
+        //dd($especialidadNombre);
+        /*
         $medicos = DB::select(
             DB::raw("
             SELECT usuario.nombre_usuario
@@ -159,12 +162,27 @@ class PatientController extends Controller
             medico.id_usuario = usuario.id_usuario;
             ")
         );
+        */
 
+        $especialidades = Especialidad::where('nombre', $especialidadNombre)->first();
+        //dd($especialidades);
+        //dd($especialidades->medico);
+        $medicos = $especialidades->medico;
+
+
+        //dd($medicos);
+        $user = [];
         foreach ($medicos as $medico){
-            $user[] = $medico->nombre_usuario;
+            $usuario = $medico->usuario;
+            $user[] = $usuario->nombre_usuario;
         }
 
         return response()->json($user);
         //return response(json_enconde($user),200)->header('Content-type', 'text/plain');
+    }
+
+    public function solicitarFechas(Request $request){
+
+        return (xd);
     }
 }

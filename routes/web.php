@@ -22,3 +22,4 @@ Route::get('/prueba', function () {
 
 Route::resource('patient', PatientController::class);
 Route::get('/request', [PatientController::class , 'requestData']);
+Route::get('/solicitarFechas', [PatientController::class], 'solicitarFechas');

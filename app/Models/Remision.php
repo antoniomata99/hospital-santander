@@ -24,6 +24,6 @@ class Remision extends Model
     }
 
     public function medico(){
-        return $this->belongsTo('App\Models\Medico', 'id_usuario_medico', 'id_usuario_medico');
+        return $this->belongsTo('App\Models\Medico', 'id_usuario', 'id_usuario_medico');
     }
 }
