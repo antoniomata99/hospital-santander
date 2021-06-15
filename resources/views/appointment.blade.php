@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    <form id="formCrearCita">
+    <form action="" method="">
         @csrf
         <div class="columns is-mobile is-centered is-vcentered">
             <div class="column is-7 is-centered">
@@ -50,7 +50,7 @@
                     <span id="contenidoHorario">
                         <div class="box">
                             <label class="radio">
-                                <input type="radio" name="answer">
+                                <input value="" type="radio" name="">
                                 5:00 PM
                             </label>
                         </div>
@@ -78,6 +78,7 @@ $( document ).ready(function() {
 
     var especialidadS= "";
     var medicoS="";
+    var fechaS="";
 
     $('#sel_esp').change(function(){
 
@@ -129,17 +130,56 @@ $( document ).ready(function() {
         }
 
     })
-    $('#fechaSelect').change(function(){
-        console.log(especialidadS);
-        console.log(medicoS);
-        console.log($(this).val());
 
-        $('#contenidoHorario').html('<div class="box">\
-            <label class="radio">\
-                <input type="radio" name="answer">\
-                10:00 PM\
-            </label>\
-        </div>')
+
+    $('#fechaSelect').change(function(){
+        console.log('fechaselect Medico seleccionado: '+ medicoS);
+        console.log('Fecha seleccionada: '+$(this).val());
+        const valor = $(this).val();
+        if(valor != ""){
+            fechaS = valor;
+            var op = ' ';
+            var div = $(this).parent();
+        $.ajax({
+            url: '/solicitarFechas',
+            type: "GET",
+            data:{
+                'nombreMedico' : medicoS,
+                'fechaHorario' : fechaS
+            }
+        }).done(function(response){
+            //console.log(response);
+            //var arrayString = JSON.stringify(response)
+            //var array = JSON.parse(arrayString);
+            console.log(response);
+            console.log('Longitud respuesta fecha select'+response.length);
+
+            var len = 0;
+             if(response['data'] != null){
+                len = response['data'].length;
+             }
+
+             console.log('longitud'+len);
+
+            if(len > 0){
+                for (var i = 0; i < response.len; i++){
+                    var id_horario = response['data'][i].id_horario;
+                    var hora_inicio = response['data'][i].hora_inicio;
+
+                    $('#contenidoHorario').html('<div class="box">\
+                <label class="radio">\
+                    <input type="radio" name="answer">\
+                    10:00 PM\
+                </label>\
+            </div>');
+                }
+
+            }
+
+        });
+
+       }
+
     })
 
     $('').click(function(){

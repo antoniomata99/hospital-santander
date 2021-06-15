@@ -182,7 +182,59 @@ class PatientController extends Controller
     }
 
     public function solicitarFechas(Request $request){
+        $nombreMedico = null;
+        $fechaHorario = null;
 
-        return (xd);
+            if (isset($request->nombreMedico)) {
+                $nombreMedico = $request->nombreMedico;
+
+            }
+
+            if(isset($request->fechaHorario)){
+                $fechaHorario = $request->fechaHorario;
+            }
+
+            $db_id_agendas = DB::select(
+                DB::raw("
+                SELECT agenda.id_agenda
+                FROM agenda, medico, usuario
+                WHERE usuario.nombre_usuario = '$nombreMedico' AND
+                usuario.id_usuario = medico.id_usuario AND
+                medico.id_agenda = agenda.id_agenda
+                ")
+            );
+            foreach($db_id_agendas as $db_id_agenda){
+                $id_agenda = $db_id_agenda->id_agenda;
+            }
+
+            $horariosDisponibles ['data']= DB::select(
+                DB::raw("
+                SELECT *
+                FROM horario
+                WHERE
+                horario.id_horario NOT IN
+                (
+                    SELECT cita.id_horario
+                    FROM cita
+                    WHERE cita.fecha = '$fechaHorario' AND
+                    cita.id_agenda = '$id_agenda'
+                );
+                ")
+            );
+            /*
+            dd($horariosDisponibles);
+
+            $fechas = [];
+            foreach($horariosDisponibles as $horariosDisponible){
+                $fechas[] = $horariosDisponible->id_horario;
+                $fechas[] = $horariosDisponible->hora_inicio;
+                $fechas[] = $horariosDisponible->hora_fin;
+            }
+            */
+
+
+
+
+        return response()->json($horariosDisponibles);
     }
 }
