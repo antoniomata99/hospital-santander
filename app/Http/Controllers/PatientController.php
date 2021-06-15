@@ -160,7 +160,11 @@ class PatientController extends Controller
             ")
         );
 
-        return response()->json($medicos);
-        //return response(json_enconde($medicos))->header('Content-type', 'text/plain');
+        foreach ($medicos as $medico){
+            $user[] = $medico->nombre_usuario;
+        }
+
+        return response()->json($user);
+        //return response(json_enconde($user),200)->header('Content-type', 'text/plain');
     }
 }

@@ -31,10 +31,9 @@
                 <div class="field">
                     <label class="label">Médico</label>
                     <div class="control">
-                      <div class="select" name="medico" id="sel_med">
-                        <select>
+                      <div class="select" name="medico" >
+                        <select id="sel_med">
                           <option value="0">Selecciona un médico</option>
-                          <option>Dr. Gregory House</option>
                         </select>
                       </div>
                     </div>
@@ -76,7 +75,12 @@
 $( document ).ready(function() {
 
         especialidadNombre = $('#sel_esp').val(); // Here, I'm getting selected value of dropdown
+        var op = ' ';
+        var div = $(this).parent();
         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             url: '/request',
             type: "GET",
             data:{
@@ -85,9 +89,19 @@ $( document ).ready(function() {
             }
         }).done(function(response){
             //console.log(response);
-            var arrayString = JSON.stringify(response)
-            var array = JSON.parse(arrayString);
-            console.log(array);
+            //var arrayString = JSON.stringify(response)
+            //var array = JSON.parse(arrayString);
+            console.log(response);
+
+
+            for (var i = 0; i < response.length; i++){
+                    op += '<option>'+response[i]+'</option>';
+
+                }
+                console.log(op);
+                $('#sel_med').append(op);
+
+
         });
 
 
